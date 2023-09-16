@@ -1,14 +1,20 @@
-import { useState, useEffect } from 'react'
-import { askForNotificationPermission } from '../service-worker'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  async function askForNotificationPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission == "granted") {
+      new Notification("Notification feature works", {
+        body: "this feature works how amazing!!!",
+      });
+    } else {
+      console.error("Notification feature is denied!")
+    }
+  }
   return (
-    <>
+    <div>
       <button onClick={askForNotificationPermission}>Ask Me For Permission</button>
-    </>
+    </div>
   )
 }
 
